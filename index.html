@@ -1,0 +1,769 @@
+<!doctype html>
+<html lang="pt-BR"><head><script>window["__codeletBootstrap__"]=JSON.parse('{"A":"A","B":"20260703-05-6766c4c"}');</script><script src="/_sdk/f432b76fb310b513.telemetry_sdk.js" integrity="sha512-9FJQ55EKmmqhyyik8BhrMVfm0+iYYfb8uOlRsjtkxJMEI97qOVEI4PnHohDjQAtvAep0IOEpdQ64eki0sz62ug=="></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Diagnóstico Digital — CactoBusiness</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&amp;family=DM+Sans:wght@300;400;500&amp;display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<script>
+  (function(){ emailjs.init({ publicKey: "LtMLxyx4f3R9DooLB" }); })();
+</script>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --cream: #F5F3EF;
+    --terracota: #C9A84C;
+    --terracota-light: #D9BC74;
+    --verde: #1B2A4A;
+    --verde-light: #2E4068;
+    --dourado: #C9A84C;
+    --text: #1B2A4A;
+    --text-muted: #6B7A99;
+    --card-bg: #FFFFFF;
+    --border: #DDE1EB;
+  }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--cream);
+    color: var(--text);
+    min-height: 100vh;
+    padding: 0;
+  }
+
+  /* ── HEADER ── */
+  header {
+    background: var(--verde);
+    padding: 2.5rem 2rem 2rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  header::before {
+    content: '';
+    position: absolute;
+    top: -60px; right: -60px;
+    width: 200px; height: 200px;
+    border-radius: 50%;
+    background: rgba(201,168,76,.18);
+  }
+  header::after {
+    content: '';
+    position: absolute;
+    bottom: -40px; left: -40px;
+    width: 140px; height: 140px;
+    border-radius: 50%;
+    background: rgba(201,168,76,.12);
+  }
+  .header-tag {
+    display: inline-block;
+    background: var(--dourado);
+    color: var(--verde);
+    font-size: .72rem;
+    font-weight: 500;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    padding: .35rem .9rem;
+    border-radius: 2rem;
+    margin-bottom: 1rem;
+  }
+  header h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.7rem, 5vw, 2.6rem);
+    color: #fff;
+    line-height: 1.25;
+    margin-bottom: .7rem;
+  }
+  header h1 em { color: var(--dourado); font-style: italic; }
+  header p {
+    color: rgba(255,255,255,.78);
+    font-size: .95rem;
+    font-weight: 300;
+    max-width: 380px;
+    margin: 0 auto;
+  }
+
+  /* ── PROGRESS ── */
+  .progress-wrap {
+    padding: 1.4rem 1.5rem .6rem;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+  .progress-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: .6rem;
+    font-size: .8rem;
+    color: var(--text-muted);
+  }
+  .progress-bar-outer {
+    height: 6px;
+    background: var(--border);
+    border-radius: 10px;
+    overflow: hidden;
+  }
+  .progress-bar-inner {
+    height: 100%;
+    background: linear-gradient(90deg, var(--terracota), var(--dourado));
+    border-radius: 10px;
+    transition: width .5s ease;
+    width: 0%;
+  }
+
+  /* ── MAIN ── */
+  main {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 0 1.2rem 3rem;
+  }
+
+  /* ── SCREENS ── */
+  .screen { display: none; animation: fadeIn .4s ease; }
+  .screen.active { display: block; }
+  @keyframes fadeIn { from { opacity:0; transform:translateY(12px); } to { opacity:1; transform:none; } }
+
+  /* ── QUESTION CARD ── */
+  .q-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 1.2rem;
+    padding: 1.8rem 1.5rem 1.4rem;
+    margin-bottom: 1rem;
+    box-shadow: 0 2px 16px rgba(42,33,24,.06);
+  }
+  .q-number {
+    font-size: .75rem;
+    font-weight: 500;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--terracota);
+    margin-bottom: .6rem;
+  }
+  .q-text {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.18rem;
+    line-height: 1.45;
+    color: var(--text);
+  }
+  .q-sub {
+    font-size: .85rem;
+    color: var(--text-muted);
+    margin-top: .4rem;
+  }
+
+  /* ── OPTIONS ── */
+  .options { display: flex; flex-direction: column; gap: .75rem; }
+  .option-btn {
+    background: var(--card-bg);
+    border: 1.5px solid var(--border);
+    border-radius: .9rem;
+    padding: 1rem 1.2rem;
+    text-align: left;
+    cursor: pointer;
+    transition: all .22s ease;
+    display: flex;
+    align-items: flex-start;
+    gap: .9rem;
+  }
+  .option-btn:hover {
+    border-color: var(--terracota-light);
+    background: #FFF8F4;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 14px rgba(196,96,58,.1);
+  }
+  .option-btn.selected {
+    border-color: var(--terracota);
+    background: #FFF4EE;
+  }
+  .opt-icon {
+    font-size: 1.3rem;
+    line-height: 1;
+    flex-shrink: 0;
+    margin-top: .05rem;
+  }
+  .opt-label { font-size: .95rem; line-height: 1.4; }
+  .opt-label strong { display: block; font-weight: 500; margin-bottom: .15rem; }
+  .opt-label span { font-size: .82rem; color: var(--text-muted); }
+
+  /* ── RESULT CARD ── */
+  .result-intro {
+    text-align: center;
+    padding: 1.5rem 0 1.2rem;
+  }
+  .result-intro .emoji-big { font-size: 2.8rem; display: block; margin-bottom: .6rem; }
+  .result-intro h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    margin-bottom: .4rem;
+  }
+  .result-intro p { font-size: .9rem; color: var(--text-muted); }
+
+  .result-list { display: flex; flex-direction: column; gap: 1rem; margin-top: 1.2rem; }
+
+  .result-item {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 1rem;
+    padding: 1.3rem 1.2rem;
+    border-left: 4px solid var(--terracota);
+    box-shadow: 0 2px 10px rgba(42,33,24,.05);
+    animation: fadeIn .4s ease both;
+  }
+  .result-item:nth-child(2) { animation-delay: .1s; border-left-color: var(--verde); }
+  .result-item:nth-child(3) { animation-delay: .2s; border-left-color: var(--dourado); }
+  .result-item:nth-child(4) { animation-delay: .3s; border-left-color: var(--terracota-light); }
+  .result-item:nth-child(5) { animation-delay: .4s; border-left-color: var(--verde-light); }
+
+  .result-item-header {
+    display: flex;
+    align-items: center;
+    gap: .7rem;
+    margin-bottom: .5rem;
+  }
+  .result-q-label {
+    font-size: .7rem;
+    font-weight: 500;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+  }
+  .result-answer {
+    font-size: .9rem;
+    font-style: italic;
+    color: var(--text-muted);
+    margin-bottom: .6rem;
+  }
+  .result-tool {
+    background: var(--verde);
+    color: #fff;
+    border-radius: .6rem;
+    padding: .6rem .9rem;
+    font-size: .88rem;
+    line-height: 1.45;
+  }
+  .result-tool strong { display: block; font-size: .95rem; margin-bottom: .15rem; }
+
+  /* ── BUTTONS ── */
+  .btn-primary {
+    display: block;
+    width: 100%;
+    background: var(--terracota);
+    color: #fff;
+    border: none;
+    border-radius: .9rem;
+    padding: 1rem;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    margin-top: 1rem;
+    transition: background .2s, transform .15s;
+  }
+  .btn-primary:hover { background: #B0522F; transform: translateY(-1px); }
+  .btn-primary:disabled { background: var(--border); color: var(--text-muted); cursor: default; transform: none; }
+
+  .btn-secondary {
+    display: block;
+    width: 100%;
+    background: transparent;
+    color: var(--terracota);
+    border: 1.5px solid var(--terracota);
+    border-radius: .9rem;
+    padding: .9rem;
+    font-family: 'DM Sans', sans-serif;
+    font-size: .95rem;
+    font-weight: 500;
+    cursor: pointer;
+    margin-top: .7rem;
+    transition: all .2s;
+  }
+  .btn-secondary:hover { background: #FFF4EE; }
+
+  /* ── START SCREEN ── */
+  .start-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 1.2rem;
+    padding: 2rem 1.5rem;
+    text-align: center;
+    margin-top: 1.4rem;
+    box-shadow: 0 2px 16px rgba(42,33,24,.06);
+  }
+  .start-card .big-emoji { font-size: 2.5rem; display: block; margin-bottom: 1rem; }
+  .start-card h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.35rem;
+    margin-bottom: .6rem;
+  }
+  .start-card p { font-size: .9rem; color: var(--text-muted); line-height: 1.6; }
+  .pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .5rem;
+    justify-content: center;
+    margin: 1.2rem 0 .5rem;
+  }
+  .pill {
+    background: #F0EBE3;
+    color: var(--text-muted);
+    font-size: .78rem;
+    padding: .3rem .8rem;
+    border-radius: 2rem;
+  }
+
+  /* ── INPUT FIELDS ── */
+  .input-group { margin-bottom: 1rem; }
+  .input-label {
+    display: block;
+    font-size: .82rem;
+    font-weight: 500;
+    color: var(--text-muted);
+    margin-bottom: .35rem;
+    letter-spacing: .04em;
+  }
+  .input-field {
+    width: 100%;
+    border: 1.5px solid var(--border);
+    border-radius: .8rem;
+    padding: .85rem 1rem;
+    font-family: 'DM Sans', sans-serif;
+    font-size: .95rem;
+    color: var(--text);
+    background: var(--card-bg);
+    outline: none;
+    transition: border-color .2s;
+  }
+  .input-field:focus { border-color: var(--dourado); }
+  .input-field::placeholder { color: #B0BBCC; }
+
+  /* ── CTA BOX ── */
+  .cta-box {
+    margin-top: 1.2rem;
+    background: var(--verde);
+    border-radius: 1.2rem;
+    padding: 1.8rem 1.5rem;
+    text-align: center;
+    color: #fff;
+  }
+  .cta-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.15rem;
+    margin-bottom: .5rem;
+  }
+  .cta-sub {
+    font-size: .85rem;
+    color: rgba(255,255,255,.75);
+    line-height: 1.55;
+    margin-bottom: 1.2rem;
+  }
+  .btn-cta {
+    display: block;
+    background: var(--dourado);
+    color: var(--verde);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 600;
+    font-size: .95rem;
+    text-decoration: none;
+    border-radius: .9rem;
+    padding: .9rem 1rem;
+    transition: opacity .2s, transform .15s;
+    margin-bottom: .9rem;
+  }
+  .btn-cta:hover { opacity: .88; transform: translateY(-1px); }
+  .cta-insta a {
+    color: rgba(255,255,255,.65);
+    font-size: .82rem;
+    text-decoration: none;
+  }
+  .cta-insta a:hover { color: var(--dourado); }
+
+  /* ── FOOTER ── */
+  footer {
+    text-align: center;
+    font-size: .75rem;
+    color: var(--text-muted);
+    padding: 1.5rem 1rem 2rem;
+    opacity: .7;
+  }
+</style>
+<script src="/_sdk/0b3af1c300e720aa.resizing_sdk.js" integrity="sha512-nX1P6oXZmEY5wCI2lUVg3BwKu1cr0yi+ZpXgZ0Yn90vkSwvpmyzBMvOyD6VLJUtBwFI2dSrw1b6OvORxSggw3w=="></script></head>
+<body data-html-import-id="html-import-0" data-template-id="__page-root" style="background: rgb(245, 243, 239);">
+
+<header data-html-import-id="html-import-1" data-template-id="header-0" class="canva-header" style="background: rgb(27, 42, 74);">
+  <div class="header-tag canva-container" data-html-import-id="html-import-2" data-template-id="div-1" style="background: rgb(201, 168, 76); color: rgb(27, 42, 74); font-weight: 500; font-size: 12px;">✨ CactoBusiness — Diagnóstico Gratuito</div>
+  <h1 data-html-import-id="html-import-3" data-template-id="h1-2" class="canva-text" style="color: rgb(255, 255, 255); font-family: &quot;Playfair Display&quot;; font-size: 30px;"><canva-inline-text data-template-id="canva-inline-text-3" class="canva-text" style="color: rgb(255, 255, 255); font-family: &quot;Playfair Display&quot;; font-size: 30px;">Qual é a sua maior</canva-inline-text><br data-html-import-id="html-import-4"><em data-html-import-id="html-import-5" data-template-id="em-4" class="canva-text" style="color: rgb(201, 168, 76); font-style: italic;">dor digital?</em></h1>
+  <p data-html-import-id="html-import-6" data-template-id="p-5" class="canva-text" style="color: rgba(255, 255, 255, 0.78); font-weight: 300; font-size: 15px;">5 perguntas simples para descobrir por onde começar no mundo online — sem complicação.</p>
+</header>
+
+<div class="progress-wrap" data-html-import-id="html-import-7">
+  <div class="progress-top canva-container" data-html-import-id="html-import-8" data-template-id="div-6" style="color: rgb(107, 122, 153); font-size: 13px;">
+    <span id="progress-text" data-html-import-id="html-import-9" data-template-id="span-7" class="canva-text" style="color: rgb(107, 122, 153);">Pronta para começar?</span>
+    <span id="progress-num" data-html-import-id="html-import-10"></span>
+  </div>
+  <div class="progress-bar-outer canva-container" data-html-import-id="html-import-11" data-template-id="div-8" style="background: rgb(221, 225, 235);">
+    <div class="progress-bar-inner" id="progress-bar" data-html-import-id="html-import-12"></div>
+  </div>
+</div>
+
+<main data-html-import-id="html-import-13">
+
+  <!-- START -->
+  <div class="screen active" id="screen-start" data-html-import-id="html-import-14">
+    <div class="start-card canva-container" data-html-import-id="html-import-15" data-template-id="div-9" style="background: rgb(255, 255, 255);">
+      <span class="big-emoji canva-text" data-html-import-id="html-import-16" data-template-id="span-10" style="color: rgb(27, 42, 74); font-size: 40px;">🌱</span>
+      <h2 data-html-import-id="html-import-17" data-template-id="h2-11" class="canva-text" style="color: rgb(27, 42, 74); font-family: &quot;Playfair Display&quot;; font-size: 22px;">Olá, empreendedora!</h2>
+      <p data-html-import-id="html-import-18" data-template-id="p-12" class="canva-text" style="color: rgb(107, 122, 153); font-size: 14px;"><canva-inline-text data-template-id="canva-inline-text-13" class="canva-text" style="color: rgb(107, 122, 153); font-size: 14px;">Você está dando os primeiros passos no digital e sente que poderia estar usando melhor a tecnologia — mas não sabe por onde começar.</canva-inline-text><br data-html-import-id="html-import-19"><br data-html-import-id="html-import-20"><canva-inline-text data-template-id="canva-inline-text-14" class="canva-text" style="color: rgb(107, 122, 153); font-size: 14px;">Este diagnóstico é pra você. Em 2 minutinhos, você vai saber </canva-inline-text><strong data-html-import-id="html-import-21" data-template-id="strong-15" class="canva-text" style="color: rgb(107, 122, 153);">qual ferramenta com IA priorizar primeiro.</strong></p>
+      <div class="pills" data-html-import-id="html-import-22">
+        <span class="pill canva-text" data-html-import-id="html-import-23" data-template-id="span-16" style="background: rgb(240, 235, 227); color: rgb(107, 122, 153); font-size: 12px;">📱 Redes sociais</span>
+        <span class="pill canva-text" data-html-import-id="html-import-24" data-template-id="span-17" style="background: rgb(240, 235, 227); color: rgb(107, 122, 153); font-size: 12px;">✍️ Conteúdo</span>
+        <span class="pill canva-text" data-html-import-id="html-import-25" data-template-id="span-18" style="background: rgb(240, 235, 227); color: rgb(107, 122, 153); font-size: 12px;">💬 Atendimento</span>
+        <span class="pill canva-text" data-html-import-id="html-import-26" data-template-id="span-19" style="background: rgb(240, 235, 227); color: rgb(107, 122, 153); font-size: 12px;">📅 Organização</span>
+        <span class="pill canva-text" data-html-import-id="html-import-27" data-template-id="span-20" style="background: rgb(240, 235, 227); color: rgb(107, 122, 153); font-size: 12px;">🛒 Vendas</span>
+      </div>
+    </div>
+    <button class="btn-primary canva-button" onclick="startQuiz()" data-html-import-id="html-import-28" data-template-id="button-21" style="background: rgb(201, 168, 76); color: rgb(255, 255, 255); font-family: &quot;DM Sans&quot;; font-weight: 500; font-size: 16px;">Começar o diagnóstico →</button>
+  </div>
+
+  <!-- QUESTION 1 -->
+  <div class="screen" id="screen-q1" data-html-import-id="html-import-29">
+    <div class="q-card canva-container" data-html-import-id="html-import-30" data-template-id="div-22" style="background: rgb(255, 255, 255);">
+      <div class="q-number canva-container" data-html-import-id="html-import-31" data-template-id="div-23" style="color: rgb(201, 168, 76); font-weight: 500; font-size: 12px;">Pergunta 1 de 5</div>
+      <div class="q-text canva-container" data-html-import-id="html-import-32" data-template-id="div-24" style="color: rgb(27, 42, 74); font-family: &quot;Playfair Display&quot;; font-size: 19px;">Quando você pensa no seu negócio online, o que te dá mais aquele frio na barriga? 🥶</div>
+      <div class="q-sub canva-container" data-html-import-id="html-import-33" data-template-id="div-25" style="color: rgb(107, 122, 153); font-size: 14px;">Escolha a que mais combina com você agora.</div>
+    </div>
+    <div class="options" data-html-import-id="html-import-34">
+      <button class="option-btn canva-button" onclick="selectAnswer(1, 'conteudo', this)" data-html-import-id="html-import-35" data-template-id="button-26" style="background: rgb(255, 255, 255); color: rgb(0, 0, 0);">
+        <span class="opt-icon canva-text" data-html-import-id="html-import-36" data-template-id="span-27" style="color: rgb(0, 0, 0); font-size: 21px;">✍️</span>
+        <span class="opt-label canva-text" data-html-import-id="html-import-37" data-template-id="span-28" style="color: rgb(0, 0, 0); font-size: 15px;"><strong data-html-import-id="html-import-38" data-template-id="strong-29" class="canva-text" style="color: rgb(0, 0, 0); font-weight: 500;">Não sei o que postar</strong><span data-html-import-id="html-import-39" data-template-id="span-30" class="canva-text" style="color: rgb(107, 122, 153); font-size: 13px;">Fico em branco, demoro horas pra criar um conteúdo e nunca parece bom o suficiente.</span></span>
+      </button>
+      <button class="option-btn canva-button" onclick="selectAnswer(1, 'atendimento', this)" data-html-import-id="html-import-40" data-template-id="button-31" style="background: rgb(255, 255, 255); color: rgb(0, 0, 0);">
+        <span class="opt-icon canva-text" data-html-import-id="html-import-41" data-template-id="span-32" style="color: rgb(0, 0, 0); font-size: 21px;">💬</span>
+        <span class="opt-label canva-text" data-html-import-id="html-import-42" data-template-id="span-33" style="color: rgb(0, 0, 0); font-size: 15px;"><strong data-html-import-id="html-import-43" data-template-id="strong-34" class="canva-text" style="color: rgb(0, 0, 0); font-weight: 500;">Responder todo mundo me consome</strong><span data-html-import-id="html-import-44" data-template-id="span-35" class="canva-text" style="color: rgb(107, 122, 153); font-size: 13px;">As mensagens chegam o tempo todo e não consigo dar conta de tudo sozinha.</span></span>
+      </button>
+      <button class="option-btn canva-button" onclick="selectAnswer(1, 'vendas', this)" data-html-import-id="html-import-45" data-template-id="button-36" style="background: rgb(255, 255, 255); color: rgb(0, 0, 0);">
+        <span class="opt-icon canva-text" data-html-import-id="html-import-46" data-template-id="span-37" style="color: rgb(0, 0, 0); font-size: 21px;">🛒</span>
+        <span class="opt-label canva-text" data-html-import-id="html-import-47" data-template-id="span-38" style="color: rgb(0, 0, 0); font-size: 15px;"><strong data-html-import-id="html-import-48" data-template-id="strong-39" class="canva-text" style="color: rgb(0, 0, 0); font-weight: 500;">Não consigo converter seguidores em clientes</strong><span data-html-import-id="html-import-49" data-template-id="span-40" class="canva-text" style="color: rgb(107, 122, 153); font-size: 13px;">Tenho curtidas, mas as vendas não acontecem como eu esperava.</span></span>
+      </button>
+      <button class="option-btn canva-button" onclick="selectAnswer(1, 'organizacao', this)" data-html-import-id="html-import-50" data-template-id="button-41" style="background: rgb(255, 255, 255); color: rgb(0, 0, 0);">
+        <span class="opt-icon canva-text" data-html-import-id="html-import-51" data-template-id="span-42" style="color: rgb(0, 0, 0); font-size: 21px;">📅</span>
+        <span class="opt-label canva-text" data-html-import-id="html-import-52" data-template-id="span-43" style="color: rgb(0, 0, 0); font-size: 15px;"><strong data-html-import-id="html-import-53" data-template-id="strong-44" class="canva-text" style="color: rgb(0, 0, 0); font-weight: 500;">Me sinto desorganizada e perdida</strong><span data-html-import-id="html-import-54" data-template-id="span-45" class="canva-text" style="color: rgb(107, 122, 153); font-size: 13px;">Não tenho rotina, esqueço tarefas e sinto que trabalho muito sem resultado.</span></span>
+      </button>
+    </div>
+    <button class="btn-primary canva-button" id="btn-q1" disabled="" onclick="nextQuestion(2)" data-html-import-id="html-import-55" data-template-id="button-46" style="background: rgb(221, 225, 235); color: rgb(107, 122, 153); font-family: &quot;DM Sans&quot;; font-weight: 500; font-size: 16px;">Próxima →</button>
+  </div>
+
+  <!-- QUESTION 2 -->
+  <div class="screen" id="screen-q2" data-html-import-id="html-import-56">
+    <div class="q-card canva-container" data-html-import-id="html-import-57" data-template-id="div-47" style="background: rgb(255, 255, 255);">
+      <div class="q-number canva-container" data-html-import-id="html-import-58" data-template-id="div-48" style="color: rgb(201, 168, 76); font-weight: 500; font-size: 12px;">Pergunta 2 de 5</div>
+      <div class="q-text canva-container" data-html-import-id="html-import-59" data-template-id="div-49" style="color: rgb(27, 42, 74); font-family: &quot;Playfair Display&quot;; font-size: 19px;">Como você descreveria sua relação com as redes sociais hoje? 📱</div>
+      <div class="q-sub canva-container" data-html-import-id="html-import-60" data-template-id="div-50" style="color: rgb(107, 122, 153); font-size: 14px;">Seja honesta — sem julgamento aqui!</div>
+    </div>
+    <div class="options" data-html-import-id="html-import-61">
+      <button class="option-btn canva-button" onclick="selectAnswer(2, 'caos', this)" data-html-import-id="html-import-62" data-template-id="button-51" style="background: rgb(255, 255, 255); color: rgb(0, 0, 0);">
+        <span class="opt-icon canva-text" data-html-import-id="html-import-63" data-template-id="span-52" style="color: rgb(0, 0, 0); font-size: 21px;">🌀</span>
+        <span class="opt-label canva-text" data-html-import-id="html-import-64" data-template-id="span-53" style="color: rgb(0, 0, 0); font-size: 15px;"><strong data-html-import-id="html-import-65" data-template-id="strong-54" class="canva-text" style="color: rgb(0, 0, 0); font-weight: 500;">Puro caos</strong><span data-html-import-id="html-import-66" data-template-id="span-55" class="canva-text" style="color: rgb(107, 122, 153); font-size: 13px;">Posto quando lembro, sem estratégia nenhuma, às vezes fico semanas sem aparecer.</span></span>
+      </button>
+      <button class="option-btn canva-button" onclick="selectAnswer(2, 'consistente', this)" data-html-import-id="html-import-67" data-template-id="button-56" style="background: rgb(255, 255, 255); color: rgb(0, 0, 0);">
+        <span class="opt-icon canva-text" data-html-import-id="html-import-68" data-template-id="span-57" style="color: rgb(0, 0, 0); font-size: 21px;">📆</span>
+        <span class="opt-label canva-text" data-html-import-id="html-import-69" data-template-id="span-58" style="color: rgb(0, 0, 0); font-size: 15px;"><strong data-html-import-id="html-import-70" data-template-id="strong-59" class="canva-text" style="color: rgb(0, 0, 0); font-weight: 500;">Tento ser consistente</strong><span data-html-import-id="html-import-71" data-template-id="span-60" class="canva-text" style="color: rgb(107, 122, 153); font-size: 13px;">Me esforcei pra criar uma rotina, mas é difícil manter, especialmente com o conteúdo.</span></span>
+      </button>
+      <button class="option-btn canva-button" onclick="selectAnswer(2, 'medo', this)" data-html-import-id="html-import-72" data-template-id="button-61" style="background: rgb(255, 255, 255); color: rgb(0, 0, 0);">
+        <span class="opt-icon canva-text" data-html-import-id="html-import-73" data-template-id="span-62" style="color: rgb(0, 0, 0); font-size: 21px;">😬</span>
+        <span class="opt-label canva-text" data-html-import-id="html-import-74" data-template-id="span-63" style="color: rgb(0, 0, 0); font-size: 15px;"><strong data-html-import-id="html-import-75" data-template-id="strong-64" class="canva-text" style="color: rgb(0, 0, 0); font-weight: 500;">Tenho medo de aparecer</strong><span data-html-import-id="html-import-76" data-template-id="span-65" class="canva-text" style="color: rgb(107, 122, 153); font-size: 13px;">A ideia de me mostrar ou falar em vídeo me trava completamente.</span></span>
+      </button>
+      <button class="option-btn canva-button" onclick="selectAnswer(2, 'gestao', this)" data-html-import-id="html-import-77" data-template-id="button-66" style="background: rgb(255, 255, 255); color: rgb(0, 0, 0);">
+        <span class="opt-icon canva-text" data-html-import-id="html-import-78" data-template-id="span-67" style="color: rgb(0, 0, 0); font-size: 21px;">⚙️</span>
+        <span class="opt-label canva-text" data-html-import-id="html-import-79" data-template-id="span-68" style="color: rgb(0, 0, 0); font-size: 15px;"><strong data-html-import-id="html-import-80" data-template-id="strong-69" class="canva-text" style="color: rgb(0, 0, 0); font-weight: 500;">Posto, mas não sei se está funcionando</strong><span data-html-import-id="html-import-81" data-template-id="span-70" class="canva-text" style="color: rgb(107, 122, 153); font-size: 13px;">Faço conteúdo mas não entendo as métricas nem o que melhorar.</span></span>
+      </button>
+    </div>
+    <button class="btn-primary canva-button" id="btn-q2" disabled="" onclick="nextQuestion(3)" data-html-import-id="html-import-82" data-template-id="button-71" style="background: rgb(221, 225, 235); color: rgb(107, 122, 153); font-family: &quot;DM Sans&quot;; font-weight: 500; font-size: 16px;">Próxima →</button>
+  </div>
+
+  <!-- QUESTION 3 -->
+  <div class="screen" id="screen-q3" data-html-import-id="html-import-83">
+    <div class="q-card canva-container" data-html-import-id="html-import-84" data-template-id="div-72" style="background: rgb(255, 255, 255);">
+      <div class="q-number canva-container" data-html-import-id="html-import-85" data-template-id="div-73" style="color: rgb(201, 168, 76); font-weight: 500; font-size: 12px;">Pergunta 3 de 5</div>
+      <div class="q-text canva-container" data-html-import-id="html-import-86" data-template-id="div-74" style="color: rgb(27, 42, 74); font-family: &quot;Playfair Display&quot;; font-size: 19px;">Quanto tempo por dia você consegue dedicar ao marketing do seu negócio? ⏰</div>
+      <div class="q-sub canva-container" data-html-import-id="html-import-87" data-template-id="div-75" style="color: rgb(107, 122, 153); font-size: 14px;">Pensa na sua realidade de hoje, não no ideal.</div>
+    </div>
+    <div class="options" data-html-import-id="html-import-88">
+      <button class="option-btn canva-button" onclick="selectAnswer(3, 'pouco', this)" data-html-import-id="html-import-89" data-template-id="button-76" style="background: rgb(255, 255, 255); color: rgb(0, 0, 0);">
+        <span class="opt-icon canva-text" data-html-import-id="html-import-90" data-template-id="span-77" style="color: rgb(0, 0, 0); font-size: 21px;">⚡</span>
+        <span class="opt-label canva-text" data-html-import-id="html-import-91" data-template-id="span-78" style="color: rgb(0, 0, 0); font-size: 15px;"><strong data-html-import-id="html-import-92" data-template-id="strong-79" class="canva-text" style="color: rgb(0, 0, 0); font-weight: 500;">Menos de 30 minutos</strong><span data-html-import-id="html-import-93" data-template-id="span-80" class="canva-text" style="color: rgb(107, 122, 153); font-size: 13px;">Minha agenda é apertada, preciso de algo que funcione rápido.</span></span>
+      </button>
+      <button class="option-btn canva-button" onclick="selectAnswer(3, 'medio', this)" data-html-import-id="html-import-94" data-template-id="button-81" style="background: rgb(255, 255, 255); color: rgb(0, 0, 0);">
+        <span class="opt-icon canva-text" data-html-import-id="html-import-95" data-template-id="span-82" style="color: rgb(0, 0, 0); font-size: 21px;">🕐</span>
+        <span class="opt-label canva-text" data-html-import-id="html-import-96" data-template-id="span-83" style="color: rgb(0, 0, 0); font-size: 15px;"><strong data-html-import-id="html-import-97" data-template-id="strong-84" class="canva-text" style="color: rgb(0, 0, 0); font-weight: 500;">30 min a 1 hora</strong><span data-html-import-id="html-import-98" data-template-id="span-85" class="canva-text" style="color: rgb(107, 122, 153); font-size: 13px;">Tenho um tempinho, mas precisa valer a pena.</span></span>
+      </button>
+      <button class="option-btn canva-button" onclick="selectAnswer(3, 'bastante', this)" data-html-import-id="html-import-99" data-template-id="button-86" style="background: rgb(255, 255, 255); color: rgb(0, 0, 0);">
+        <span class="opt-icon canva-text" data-html-import-id="html-import-100" data-template-id="span-87" style="color: rgb(0, 0, 0); font-size: 21px;">🗂️</span>
+        <span class="opt-label canva-text" data-html-import-id="html-import-101" data-template-id="span-88" style="color: rgb(0, 0, 0); font-size: 15px;"><strong data-html-import-id="html-import-102" data-template-id="strong-89" class="canva-text" style="color: rgb(0, 0, 0); font-weight: 500;">Mais de 1 hora</strong><span data-html-import-id="html-import-103" data-template-id="span-90" class="canva-text" style="color: rgb(107, 122, 153); font-size: 13px;">Consigo dedicar tempo, mas estou investindo de forma errada.</span></span>
+      </button>
+    </div>
+    <button class="btn-primary canva-button" id="btn-q3" disabled="" onclick="nextQuestion(4)" data-html-import-id="html-import-104" data-template-id="button-91" style="background: rgb(221, 225, 235); color: rgb(107, 122, 153); font-family: &quot;DM Sans&quot;; font-weight: 500; font-size: 16px;">Próxima →</button>
+  </div>
+
+  <!-- QUESTION 4 -->
+  <div class="screen" id="screen-q4" data-html-import-id="html-import-105">
+    <div class="q-card canva-container" data-html-import-id="html-import-106" data-template-id="div-92" style="background: rgb(255, 255, 255);">
+      <div class="q-number canva-container" data-html-import-id="html-import-107" data-template-id="div-93" style="color: rgb(201, 168, 76); font-weight: 500; font-size: 12px;">Pergunta 4 de 5</div>
+      <div class="q-text canva-container" data-html-import-id="html-import-108" data-template-id="div-94" style="color: rgb(27, 42, 74); font-family: &quot;Playfair Display&quot;; font-size: 19px;">Quando uma cliente entra em contato, o que mais te desafia? 🤝</div>
+    </div>
+    <div class="options" data-html-import-id="html-import-109">
+      <button class="option-btn canva-button" onclick="selectAnswer(4, 'demora', this)" data-html-import-id="html-import-110" data-template-id="button-95" style="background: rgb(255, 255, 255); color: rgb(0, 0, 0);">
+        <span class="opt-icon canva-text" data-html-import-id="html-import-111" data-template-id="span-96" style="color: rgb(0, 0, 0); font-size: 21px;">🐢</span>
+        <span class="opt-label canva-text" data-html-import-id="html-import-112" data-template-id="span-97" style="color: rgb(0, 0, 0); font-size: 15px;"><strong data-html-import-id="html-import-113" data-template-id="strong-98" class="canva-text" style="color: rgb(0, 0, 0); font-weight: 500;">Demoro a responder e perco vendas</strong><span data-html-import-id="html-import-114" data-template-id="span-99" class="canva-text" style="color: rgb(107, 122, 153); font-size: 13px;">Não consigo estar online o tempo todo e isso me faz perder oportunidades.</span></span>
+      </button>
+      <button class="option-btn canva-button" onclick="selectAnswer(4, 'preco', this)" data-html-import-id="html-import-115" data-template-id="button-100" style="background: rgb(255, 255, 255); color: rgb(0, 0, 0);">
+        <span class="opt-icon canva-text" data-html-import-id="html-import-116" data-template-id="span-101" style="color: rgb(0, 0, 0); font-size: 21px;">💰</span>
+        <span class="opt-label canva-text" data-html-import-id="html-import-117" data-template-id="span-102" style="color: rgb(0, 0, 0); font-size: 15px;"><strong data-html-import-id="html-import-118" data-template-id="strong-103" class="canva-text" style="color: rgb(0, 0, 0); font-weight: 500;">Fico travada na hora de falar de preço</strong><span data-html-import-id="html-import-119" data-template-id="span-104" class="canva-text" style="color: rgb(107, 122, 153); font-size: 13px;">Não sei como argumentar o valor do meu serviço ou produto.</span></span>
+      </button>
+      <button class="option-btn canva-button" onclick="selectAnswer(4, 'repetitivo', this)" data-html-import-id="html-import-120" data-template-id="button-105" style="background: rgb(255, 255, 255); color: rgb(0, 0, 0);">
+        <span class="opt-icon canva-text" data-html-import-id="html-import-121" data-template-id="span-106" style="color: rgb(0, 0, 0); font-size: 21px;">🔁</span>
+        <span class="opt-label canva-text" data-html-import-id="html-import-122" data-template-id="span-107" style="color: rgb(0, 0, 0); font-size: 15px;"><strong data-html-import-id="html-import-123" data-template-id="strong-108" class="canva-text" style="color: rgb(0, 0, 0); font-weight: 500;">Respondo as mesmas perguntas mil vezes</strong><span data-html-import-id="html-import-124" data-template-id="span-109" class="canva-text" style="color: rgb(107, 122, 153); font-size: 13px;">As dúvidas se repetem e isso consome um tempo que eu não tenho.</span></span>
+      </button>
+      <button class="option-btn canva-button" onclick="selectAnswer(4, 'acompanhamento', this)" data-html-import-id="html-import-125" data-template-id="button-110" style="background: rgb(255, 255, 255); color: rgb(0, 0, 0);">
+        <span class="opt-icon canva-text" data-html-import-id="html-import-126" data-template-id="span-111" style="color: rgb(0, 0, 0); font-size: 21px;">📋</span>
+        <span class="opt-label canva-text" data-html-import-id="html-import-127" data-template-id="span-112" style="color: rgb(0, 0, 0); font-size: 15px;"><strong data-html-import-id="html-import-128" data-template-id="strong-113" class="canva-text" style="color: rgb(0, 0, 0); font-weight: 500;">Esqueço de fazer o follow-up</strong><span data-html-import-id="html-import-129" data-template-id="span-114" class="canva-text" style="color: rgb(107, 122, 153); font-size: 13px;">Perco contatos porque não consigo organizar o acompanhamento das clientes.</span></span>
+      </button>
+    </div>
+    <button class="btn-primary canva-button" id="btn-q4" disabled="" onclick="nextQuestion(5)" data-html-import-id="html-import-130" data-template-id="button-115" style="background: rgb(221, 225, 235); color: rgb(107, 122, 153); font-family: &quot;DM Sans&quot;; font-weight: 500; font-size: 16px;">Próxima →</button>
+  </div>
+
+  <!-- QUESTION 5 -->
+  <div class="screen" id="screen-q5" data-html-import-id="html-import-131">
+    <div class="q-card canva-container" data-html-import-id="html-import-132" data-template-id="div-116" style="background: rgb(255, 255, 255);">
+      <div class="q-number canva-container" data-html-import-id="html-import-133" data-template-id="div-117" style="color: rgb(201, 168, 76); font-weight: 500; font-size: 12px;">Pergunta 5 de 5</div>
+      <div class="q-text canva-container" data-html-import-id="html-import-134" data-template-id="div-118" style="color: rgb(27, 42, 74); font-family: &quot;Playfair Display&quot;; font-size: 19px;">Qual é o seu maior sonho para o seu negócio nos próximos 6 meses? 🌟</div>
+      <div class="q-sub canva-container" data-html-import-id="html-import-135" data-template-id="div-119" style="color: rgb(107, 122, 153); font-size: 14px;">Vai fundo — este é o objetivo que vai guiar as suas prioridades.</div>
+    </div>
+    <div class="options" data-html-import-id="html-import-136">
+      <button class="option-btn canva-button" onclick="selectAnswer(5, 'clientes', this)" data-html-import-id="html-import-137" data-template-id="button-120" style="background: rgb(255, 255, 255); color: rgb(0, 0, 0);">
+        <span class="opt-icon canva-text" data-html-import-id="html-import-138" data-template-id="span-121" style="color: rgb(0, 0, 0); font-size: 21px;">🚀</span>
+        <span class="opt-label canva-text" data-html-import-id="html-import-139" data-template-id="span-122" style="color: rgb(0, 0, 0); font-size: 15px;"><strong data-html-import-id="html-import-140" data-template-id="strong-123" class="canva-text" style="color: rgb(0, 0, 0); font-weight: 500;">Atrair mais clientes pelo online</strong><span data-html-import-id="html-import-141" data-template-id="span-124" class="canva-text" style="color: rgb(107, 122, 153); font-size: 13px;">Quero que as pessoas me encontrem e se interessem pelo que ofereço.</span></span>
+      </button>
+      <button class="option-btn canva-button" onclick="selectAnswer(5, 'autoridade', this)" data-html-import-id="html-import-142" data-template-id="button-125" style="background: rgb(255, 255, 255); color: rgb(0, 0, 0);">
+        <span class="opt-icon canva-text" data-html-import-id="html-import-143" data-template-id="span-126" style="color: rgb(0, 0, 0); font-size: 21px;">🎤</span>
+        <span class="opt-label canva-text" data-html-import-id="html-import-144" data-template-id="span-127" style="color: rgb(0, 0, 0); font-size: 15px;"><strong data-html-import-id="html-import-145" data-template-id="strong-128" class="canva-text" style="color: rgb(0, 0, 0); font-weight: 500;">Ser reconhecida como referência</strong><span data-html-import-id="html-import-146" data-template-id="span-129" class="canva-text" style="color: rgb(107, 122, 153); font-size: 13px;">Quero construir autoridade e que as pessoas confiem em mim antes mesmo de comprar.</span></span>
+      </button>
+      <button class="option-btn canva-button" onclick="selectAnswer(5, 'escala', this)" data-html-import-id="html-import-147" data-template-id="button-130" style="background: rgb(255, 255, 255); color: rgb(0, 0, 0);">
+        <span class="opt-icon canva-text" data-html-import-id="html-import-148" data-template-id="span-131" style="color: rgb(0, 0, 0); font-size: 21px;">📈</span>
+        <span class="opt-label canva-text" data-html-import-id="html-import-149" data-template-id="span-132" style="color: rgb(0, 0, 0); font-size: 15px;"><strong data-html-import-id="html-import-150" data-template-id="strong-133" class="canva-text" style="color: rgb(0, 0, 0); font-weight: 500;">Escalar sem trabalhar mais horas</strong><span data-html-import-id="html-import-151" data-template-id="span-134" class="canva-text" style="color: rgb(107, 122, 153); font-size: 13px;">Quero vender mais sem precisar me desdobrar ainda mais.</span></span>
+      </button>
+      <button class="option-btn canva-button" onclick="selectAnswer(5, 'presenca', this)" data-html-import-id="html-import-152" data-template-id="button-135" style="background: rgb(255, 255, 255); color: rgb(0, 0, 0);">
+        <span class="opt-icon canva-text" data-html-import-id="html-import-153" data-template-id="span-136" style="color: rgb(0, 0, 0); font-size: 21px;">💪</span>
+        <span class="opt-label canva-text" data-html-import-id="html-import-154" data-template-id="span-137" style="color: rgb(0, 0, 0); font-size: 15px;"><strong data-html-import-id="html-import-155" data-template-id="strong-138" class="canva-text" style="color: rgb(0, 0, 0); font-weight: 500;">Ter uma presença digital consistente</strong><span data-html-import-id="html-import-156" data-template-id="span-139" class="canva-text" style="color: rgb(107, 122, 153); font-size: 13px;">Quero aparecer com regularidade e parar de sumir das redes.</span></span>
+      </button>
+    </div>
+    <button class="btn-primary canva-button" id="btn-q5" disabled="" onclick="nextQuestion('dados')" data-html-import-id="html-import-157" data-template-id="button-140" style="background: rgb(221, 225, 235); color: rgb(107, 122, 153); font-family: &quot;DM Sans&quot;; font-weight: 500; font-size: 16px;">Ver meu diagnóstico ✨</button>
+  </div>
+
+  <!-- COLLECT DATA -->
+  <div class="screen" id="screen-dados" data-html-import-id="html-import-158">
+    <div class="q-card canva-container" data-html-import-id="html-import-159" data-template-id="div-141" style="background: rgb(255, 255, 255);">
+      <div class="q-number canva-container" data-html-import-id="html-import-160" data-template-id="div-142" style="color: rgb(201, 168, 76); font-weight: 500; font-size: 12px;">Quase lá! 🌵</div>
+      <div class="q-text canva-container" data-html-import-id="html-import-161" data-template-id="div-143" style="color: rgb(27, 42, 74); font-family: &quot;Playfair Display&quot;; font-size: 19px;">Para liberar seu diagnóstico, me conta rapidinho:</div>
+      <div class="q-sub canva-container" data-html-import-id="html-import-162" data-template-id="div-144" style="color: rgb(107, 122, 153); font-size: 14px;">Seus dados ficam só com a CactoBusiness — sem spam, promessa!</div>
+    </div>
+    <div class="input-group" data-html-import-id="html-import-163">
+      <label class="input-label canva-text" data-html-import-id="html-import-164" data-template-id="label-145" style="color: rgb(107, 122, 153); font-weight: 500; font-size: 13px;">Seu nome 👋</label>
+      <input class="input-field canva-input" id="input-nome" type="text" placeholder="Como você se chama?" data-html-import-id="html-import-165" data-template-id="input-146" style="background: rgb(255, 255, 255); color: rgb(27, 42, 74); font-family: &quot;DM Sans&quot;; font-size: 15px;">
+    </div>
+    <div class="input-group" data-html-import-id="html-import-166">
+      <label class="input-label canva-text" data-html-import-id="html-import-167" data-template-id="label-147" style="color: rgb(107, 122, 153); font-weight: 500; font-size: 13px;">Seu WhatsApp 📱</label>
+      <input class="input-field canva-input" id="input-whats" type="tel" placeholder="(85) 99999-9999" data-html-import-id="html-import-168" data-template-id="input-148" style="background: rgb(255, 255, 255); color: rgb(27, 42, 74); font-family: &quot;DM Sans&quot;; font-size: 15px;">
+    </div>
+    <div class="input-group" data-html-import-id="html-import-169">
+      <label class="input-label canva-text" data-html-import-id="html-import-170" data-template-id="label-149" style="color: rgb(107, 122, 153); font-weight: 500; font-size: 13px;">Seu Instagram (opcional) 📸</label>
+      <input class="input-field canva-input" id="input-insta" type="text" placeholder="@seuperfil" data-html-import-id="html-import-171" data-template-id="input-150" style="background: rgb(255, 255, 255); color: rgb(27, 42, 74); font-family: &quot;DM Sans&quot;; font-size: 15px;">
+    </div>
+    <button class="btn-primary canva-button" onclick="coletarDados()" data-html-import-id="html-import-172" data-template-id="button-151" style="background: rgb(201, 168, 76); color: rgb(255, 255, 255); font-family: &quot;DM Sans&quot;; font-weight: 500; font-size: 16px;">Ver meu diagnóstico ✨</button>
+    <p id="dados-erro" style="color: rgb(201, 168, 76); font-size: 13px; text-align: center; margin-top: 0.6rem; display: none;" data-html-import-id="html-import-173" data-template-id="p-152" class="canva-text">Por favor, preencha nome e WhatsApp 🙏</p>
+  </div>
+
+  <!-- RESULT -->
+  <div class="screen" id="screen-result" data-html-import-id="html-import-174">
+    <div class="result-intro" data-html-import-id="html-import-175">
+      <span class="emoji-big canva-text" data-html-import-id="html-import-176" data-template-id="span-153" style="color: rgb(27, 42, 74); font-size: 45px;">🎯</span>
+      <h2 id="result-titulo" data-html-import-id="html-import-177" data-template-id="h2-154" class="canva-text" style="color: rgb(27, 42, 74); font-family: &quot;Playfair Display&quot;; font-size: 24px;">Seu diagnóstico está pronto!</h2>
+      <p data-html-import-id="html-import-178" data-template-id="p-155" class="canva-text" style="color: rgb(107, 122, 153); font-size: 14px;">Baseado nas suas respostas, aqui estão as ferramentas com IA que você deve priorizar:</p>
+    </div>
+    <div class="result-list" id="result-list" data-html-import-id="html-import-179"></div>
+    <button class="btn-secondary canva-button" onclick="restartQuiz()" data-html-import-id="html-import-180" data-template-id="button-156" style="color: rgb(201, 168, 76); font-family: &quot;DM Sans&quot;; font-weight: 500; font-size: 15px;">🔄 Refazer o diagnóstico</button>
+    <div class="cta-box canva-container" data-html-import-id="html-import-181" data-template-id="div-157" style="background: rgb(27, 42, 74); color: rgb(255, 255, 255);">
+      <p class="cta-title canva-text" data-html-import-id="html-import-182" data-template-id="p-158" style="color: rgb(255, 255, 255); font-family: &quot;Playfair Display&quot;; font-size: 18px;">Quer ajuda pra colocar isso em prática? 🌵</p>
+      <p class="cta-sub canva-text" data-html-import-id="html-import-183" data-template-id="p-159" style="color: rgba(255, 255, 255, 0.75); font-size: 14px;">A CactoBusiness ajuda pequenas empreendedoras a crescer no digital com estratégia, conteúdo e automação — sem complicação.</p>
+      <a id="btn-whats-cliente" class="btn-cta canva-link" href="#" target="_blank" data-html-import-id="html-import-184" data-template-id="a-160" style="background: rgb(201, 168, 76); color: rgb(27, 42, 74); font-family: &quot;DM Sans&quot;; font-weight: 600; font-size: 15px;">💬 Falar com a Vanessa no WhatsApp</a>
+      <p class="cta-insta canva-text" data-html-import-id="html-import-185" data-template-id="p-161" style="color: rgb(255, 255, 255);"><a href="https://instagram.com/cactosbusiness" target="_blank" data-html-import-id="html-import-186" data-template-id="a-162" class="canva-link" style="color: rgba(255, 255, 255, 0.65); font-size: 13px;">@cactosbusiness no Instagram</a></p>
+    </div>
+  </div>
+
+</main>
+
+<footer data-html-import-id="html-import-187" data-template-id="footer-163" class="canva-footer" style="color: rgb(107, 122, 153); font-size: 12px;"><canva-inline-text data-template-id="canva-inline-text-164" class="canva-text" style="color: rgb(107, 122, 153); font-size: 12px;">Feito com 💛 por </canva-inline-text><strong data-html-import-id="html-import-188" data-template-id="strong-165" class="canva-text" style="color: rgb(107, 122, 153);">CactoBusiness</strong><canva-inline-text data-template-id="canva-inline-text-166" class="canva-text" style="color: rgb(107, 122, 153); font-size: 12px;"> — Pequenas empresas que crescem de verdade no digital</canva-inline-text></footer>
+
+<script data-html-import-id="html-import-189">
+const answers = {};
+let currentQ = 0;
+
+const toolMap = {
+  // Q1 — maior dor
+  conteudo:      { tool: "ChatGPT ou Claude (IA de texto)", desc: "Use uma IA de texto para gerar ideias de post, legendas, roteiros de Reels e até seu calendário mensal. Você descreve o tema e ela escreve — você só revisa e ajusta com a sua voz." },
+  atendimento:   { tool: "ManyChat ou Zapier com IA", desc: "Configure um bot com IA para responder automaticamente no Instagram e WhatsApp. Ele atende enquanto você descansa, 24h por dia, sem perder oportunidades." },
+  vendas:        { tool: "ChatGPT para copy de vendas", desc: "Use IA para criar textos de venda mais persuasivos — desde a legenda do post até as mensagens de follow-up. Pequenas mudanças nas palavras fazem grande diferença na conversão." },
+  organizacao:   { tool: "Notion AI ou ClickUp com IA", desc: "Ferramentas de gestão com IA que te ajudam a criar rotinas, listas de tarefas e até planos de ação. Você fala o que precisa fazer e ela organiza tudo por você." },
+  // Q2 — relação com redes
+  caos:          { tool: "Buffer ou Metricool com IA", desc: "Agende seus posts com semanas de antecedência. Essas ferramentas têm sugestões automáticas de horário e algumas até geram ideias de conteúdo para preencher o calendário." },
+  consistente:   { tool: "Canva com IA (Magic Write + Magic Design)", desc: "O Canva já tem IA embutida para criar artes, escrever legendas e sugerir layouts. Você passa menos tempo na produção e mantém a identidade visual sem esforço." },
+  medo:          { tool: "HeyGen ou Synthesia (avatares de IA)", desc: "Se aparecer em câmera te trava, você pode criar vídeos com um avatar de IA com a sua voz ou voz gerada. Dá pra apresentar produtos, explicar serviços e postar Reels sem gravar." },
+  gestao:        { tool: "Meta Business Suite + IA de análise", desc: "O próprio painel do Instagram já mostra dados. Use o ChatGPT para interpretar esses números: cole os dados e pergunte 'o que devo melhorar?'. Você vai entender os resultados de forma simples." },
+  // Q3 — tempo
+  pouco:         { tool: "ChatGPT (criação de conteúdo em massa)", desc: "Com 15-20 minutos por semana, você pode gerar ideias, legendas e roteiros de um mês inteiro. Peça à IA um 'pacote de conteúdo semanal' e use o tempo para revisar apenas." },
+  medio:         { tool: "Canva AI + agendamento no Metricool", desc: "Em 30-40 minutos você cria a arte, escreve a legenda com IA e agenda tudo para a semana. Depois é só deixar rodar." },
+  bastante:      { tool: "Estratégia completa com IA (conteúdo + tráfego)", desc: "Se você tem mais tempo, invista em entender tráfego pago com ajuda da IA. Use o ChatGPT para criar copy para anúncios e planejar uma estratégia mais completa de crescimento." },
+  // Q4 — atendimento
+  demora:        { tool: "ManyChat (respostas automáticas no Instagram)", desc: "Programe respostas automáticas para as perguntas mais comuns. Quando alguém comenta 'quero saber mais', ela já recebe uma mensagem sua no direct — sem você precisar estar online." },
+  preco:         { tool: "ChatGPT para scripts de venda", desc: "Peça à IA para criar um roteiro de como apresentar o seu preço com segurança. Com as palavras certas, fica muito mais fácil defender o valor do que você oferece." },
+  repetitivo:    { tool: "Criação de FAQ automático com IA + WhatsApp Business", desc: "Use a IA para criar um FAQ completo do seu negócio e configure respostas rápidas no WhatsApp Business. Você responde uma vez, a ferramenta responde sempre." },
+  acompanhamento:{ tool: "CRM simples + Zapier com IA", desc: "Ferramentas como Hubspot Free ou até o Notion com IA te ajudam a criar um acompanhamento automático — lembretes de follow-up, mensagens de retorno e alertas personalizados." },
+  // Q5 — sonho
+  clientes:      { tool: "Tráfego pago com IA (Meta Ads Advantage+)", desc: "O próprio Instagram tem uma IA embutida nos anúncios chamada Advantage+. Ela otimiza sozinha para quem tem mais chance de comprar. Com um orçamento pequeno, você pode testar e atrair clientes novos." },
+  autoridade:    { tool: "ChatGPT para produção de conteúdo de valor", desc: "Use IA para criar posts educativos, carrosséis com dicas e conteúdos que mostram o seu conhecimento. Autoridade se constrói com consistência — e a IA te ajuda a ter ideias todos os dias." },
+  escala:        { tool: "Automação com Zapier + IA (fluxos de venda)", desc: "Crie fluxos automáticos que nutrem suas clientes sem você estar presente: e-mail, WhatsApp, DM do Instagram. A IA cuida do processo, você cuida do produto." },
+  presenca:      { tool: "Calendário de conteúdo gerado por IA", desc: "Peça ao ChatGPT para criar um calendário de 30 dias com temas, formatos e ideias para cada dia. Você nunca mais vai ficar sem saber o que postar." },
+};
+
+const qLabels = ["Maior dor", "Relação com redes", "Tempo disponível", "Desafio no atendimento", "Sonho dos próximos 6 meses"];
+
+function startQuiz() {
+  showScreen('screen-q1');
+  updateProgress(1);
+}
+
+function selectAnswer(q, value, btn) {
+  // deselect all in this question
+  btn.closest('.options').querySelectorAll('.option-btn').forEach(b => b.classList.remove('selected'));
+  btn.classList.add('selected');
+  answers[q] = value;
+  document.getElementById('btn-q' + q).disabled = false;
+}
+
+function nextQuestion(n) {
+  if (n === 'dados') {
+    showScreen('screen-dados');
+    updateProgress(6);
+    document.getElementById('progress-text').textContent = 'Só mais um passo!';
+    document.getElementById('progress-num').textContent = '🌵';
+  } else {
+    showScreen('screen-q' + n);
+    updateProgress(n);
+  }
+}
+
+function coletarDados() {
+  const nome = document.getElementById('input-nome').value.trim();
+  const whats = document.getElementById('input-whats').value.trim();
+  const insta = document.getElementById('input-insta').value.trim();
+  const erro = document.getElementById('dados-erro');
+
+  if (!nome || !whats) {
+    erro.style.display = 'block';
+    return;
+  }
+  erro.style.display = 'none';
+  showResult(nome, whats, insta);
+}
+
+function enviarParaVanessa(nome, whats, insta, resumo) {
+  const SEU_WHATS = '5585989257865';
+  const instaTexto = insta ? `Instagram: ${insta}` : 'Instagram: não informado';
+  const msg = `🌵 *Novo diagnóstico CactoBusiness!*\n\n👤 *Nome:* ${nome}\n📱 *WhatsApp:* ${whats}\n📸 *${instaTexto}*\n\n📋 *Resultado do diagnóstico:*\n${resumo}\n\n_Diagnóstico recebido pelo quiz da CactoBusiness_`;
+  const url = `https://wa.me/${SEU_WHATS}?text=${encodeURIComponent(msg)}`;
+  window.open(url, '_blank');
+}
+
+function showResult(nome, whats, insta) {
+  const list = document.getElementById('result-list');
+  list.innerHTML = '';
+
+  let resumoTexto = '';
+  let resumoHTML = '';
+
+  Object.entries(answers).forEach(([q, val], i) => {
+    const data = toolMap[val];
+    if (!data) return;
+    const item = document.createElement('div');
+    item.className = 'result-item';
+    item.style.animationDelay = (i * 0.1) + 's';
+    item.innerHTML = `
+      <div class="result-q-label">📌 ${qLabels[i]}</div>
+      <div class="result-tool">
+        <strong>🤖 ${data.tool}</strong>
+        ${data.desc}
+      </div>
+    `;
+    list.appendChild(item);
+    resumoTexto += `• ${qLabels[i]}: ${data.tool}\n`;
+    resumoHTML  += `<li><b>${qLabels[i]}:</b> ${data.tool} — ${data.desc}</li>`;
+  });
+
+  // Título personalizado
+  document.getElementById('result-titulo').textContent = `${nome ? nome + ', seu' : 'Seu'} diagnóstico está pronto! 🎯`;
+
+  // Botão WhatsApp cliente → Vanessa
+  const msgCliente = `Oi, Vanessa! 👋 Acabei de fazer o diagnóstico digital da CactoBusiness e quero saber como vocês podem me ajudar! 🌵`;
+  document.getElementById('btn-whats-cliente').href = `https://wa.me/5585989257865?text=${encodeURIComponent(msgCliente)}`;
+
+  showScreen('screen-result');
+  updateProgress(7);
+  document.getElementById('progress-text').textContent = 'Diagnóstico concluído!';
+  document.getElementById('progress-num').textContent = '✅';
+
+  // Envia e-mail para labcacto@gmail.com via EmailJS
+  const agora = new Date().toLocaleString('pt-BR');
+  emailjs.send("service_qfcc9cn", "template_1kanhc5", {
+    nome_cliente:    nome,
+    whats_cliente:   whats,
+    insta_cliente:   insta || 'Não informado',
+    diagnostico:     resumoTexto,
+    data_hora:       agora,
+    to_email:        'labcacto@gmail.com'
+  }).then(() => {
+    console.log('E-mail enviado com sucesso!');
+  }).catch((err) => {
+    console.error('Erro ao enviar e-mail:', err);
+  });
+}
+
+function restartQuiz() {
+  Object.keys(answers).forEach(k => delete answers[k]);
+  document.querySelectorAll('.option-btn').forEach(b => b.classList.remove('selected'));
+  document.querySelectorAll('[id^="btn-q"]').forEach(b => b.disabled = true);
+  ['input-nome','input-whats','input-insta'].forEach(id => document.getElementById(id).value = '');
+  showScreen('screen-start');
+  updateProgress(0);
+  document.getElementById('progress-text').textContent = 'Pronta para começar?';
+  document.getElementById('progress-num').textContent = '';
+}
+
+function showScreen(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function updateProgress(step) {
+  const pct = step === 0 ? 0 : step >= 6 ? 100 : ((step - 1) / 5) * 100;
+  document.getElementById('progress-bar').style.width = pct + '%';
+  if (step > 0 && step < 6) {
+    document.getElementById('progress-text').textContent = `Pergunta ${step} de 5`;
+    document.getElementById('progress-num').textContent = `${step}/5`;
+  }
+}
+</script>
+
+
+<script src="/_sdk/e063511df281944a.editing_sdk.js" integrity="sha512-Xa8p4aPfoMxVnzxQE2WAG0FfoaPLxdjOJMfUZGm1yZosJTYmnNDvgLkJ2EoN0i3zxjeQVAzUMSXNvTKQVqbXyQ=="></script><script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a15a05f481a20b0d',t:'MTc4MzEyNTA0Ni4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body></html>
